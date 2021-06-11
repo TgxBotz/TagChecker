@@ -27,7 +27,7 @@ user_s = {}
 
 async def is_admin(message):
     user = await tagcheck.get_chat_member(message.chat.id, message.from_user.id)
-    if user.status in ("administrator", "creator")
+    if user.status in ("administrator", "creator"):
       return True
     return False
 
@@ -37,7 +37,7 @@ async def start(_, message):
 
 @tagcheck.on_message(filters.group)
 async def tag_check(_, message):
-    if is_admin(message):
+    if await is_admin(message):
        return
     user = message.from_user.id
     if TAG not in message.from_user.first_name:
