@@ -1,0 +1,46 @@
+{
+    "name": "Tag Verifier",
+    "description": "A Telegram Tag Verifier Bot!",
+    "keywords": [
+        "tag",
+        "verify",
+        "telegram",
+        "bots"
+    ],
+    "website": "https://t.me/TgXBots",
+    "repository": "https://github.com/tgxbotz/TagChecker",
+    "success_url": "https://telegram.dog/TheTelegramChats",
+    "env": {
+        "API_ID": {
+            "description": "Your APP ID From my.telegram.org",
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "Your API Hash From my.telegram.org",
+            "value": ""
+        },
+        "TOKEN": {
+            "description": "Your Bot Token From @BotFather",
+            "value": ""
+        },
+        "TAG": {
+            "description": "Your Tag that you wanna verify",
+            "value": ""
+        },
+        "OWNER_ID": {
+            "description": "Your Telegram ID",
+            "value": ""
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
