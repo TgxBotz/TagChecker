@@ -25,12 +25,20 @@ tagcheck = Client(
 
 user_s = {}
 
+async def is_admin(message):
+    user = await tagcheck.get_chat_member(message.chat.id, message.from_user.id)
+    if user.status in ("administrator", "creator")
+      return True
+    return False
+
 @tagcheck.on_message(filters.command("start") & filters.user(OWNER_ID))
 async def start(_, message):
    await message.reply("I am Alive.")
 
 @tagcheck.on_message(filters.group)
 async def tag_check(_, message):
+    if is_admin(message):
+       return
     user = message.from_user.id
     if TAG not in message.from_user.first_name:
        await tagcheck.restrict_chat_member(
