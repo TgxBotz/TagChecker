@@ -23,7 +23,6 @@ tagcheck = Client(
    api_hash=API_HASH
 )
 
-user_s = {}
 
 async def is_admin(message):
     user = await tagcheck.get_chat_member(message.chat.id, message.from_user.id)
@@ -62,26 +61,17 @@ Unmuting YourSelf!__
        await message.reply(
         text,
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Unmute Me", callback_data="unmute")]
+            [InlineKeyboardButton("Unmute Me", callback_data=f"unmute_{user}")]
            ]
          )
        )
-       user_s.update({"user_id": user})
 
-@tagcheck.on_callback_query(filters.regex("unmute"))
+@tagcheck.on_callback_query(filters.regex("unmute_(.*)"))
 async def unmute(client, cb):
-    try:
-       user = user_s["user_id"]
-    except KeyError:
-      await cb.answer(
-        "Oops!\nIts looks like i lost your id from my server\nContact Admins For Unmiting", 
-        show_alert=True
-      )
-      return
+    user = cb.matches[0].group(1)
     if cb.from_user.id != user:
       await cb.answer("This Button is not for you!", show_alert=True)
       return
-
     if TAG in cb.from_user.first_name:
       await tagcheck.unban_chat_member(cb.message.chat.id, user)
       await cb.answer("Succesfully Unmuted!")
