@@ -41,11 +41,15 @@ async def tag_check(_, message):
        return
     user = message.from_user.id
     if TAG not in message.from_user.first_name:
-       await tagcheck.restrict_chat_member(
-        message.chat.id,
-        user,
-        ChatPermissions(),
-       )
+       try:
+           await tagcheck.restrict_chat_member(
+             message.chat.id,
+             user,
+             ChatPermissions(),
+           )
+       except BaseException as be:
+           await message.reply(f"**Error:**\n`{be}`")
+           return
        text = f"""
 **Heya {message.from_user.mention}**
 Please add our tag in your name to
