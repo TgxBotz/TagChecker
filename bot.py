@@ -68,7 +68,7 @@ Unmuting YourSelf!__
 
 @tagcheck.on_callback_query(filters.regex("unmute_(.*)"))
 async def unmute(client, cb):
-    user = cb.matches[0].group(1)
+    user = int(cb.matches[0].group(1))
     if cb.from_user.id != user:
       await cb.answer("This Button is not for you!", show_alert=True)
       return
